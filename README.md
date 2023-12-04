@@ -1,6 +1,6 @@
 # pdfrender
 
-Version: 2019/12/29 v1.6
+Version: 2023/12/04 v1.7
 
 The PDF format has some graphics parameter like
 line width or text rendering mode. This package

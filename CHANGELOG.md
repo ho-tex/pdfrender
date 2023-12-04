@@ -9,3 +9,4 @@ this project uses date-based 'snapshot' version identifiers.
 
 ### Changed
  - moved from oberdiek package to own repository
+ - use LaTeX cmd hooks to patch \normalcolor and \color@setgroup
