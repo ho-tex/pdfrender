@@ -655,13 +655,8 @@ and the derived files
 %
 % \subsection{Hook into \cs{normalcolor}}
 %
-%    The problem is that packages \xpackage{color} and \xpackage{xcolor}
-%    each overwrite \cs{normalcolor}. For example, after the package
-%    loading order \xpackage{color}, \xpackage{pdfrender} and \xpackage{xcolor}
-%    the patched version of \cs{normalcolor} is overwritten by
-%    package \xpackage{xcolor}. Also using \cs{AtBeginDocument} for
-%    patching is not enough. If package \xpackage{hyperref} is loaded
-%    later, it might load package \xpackage{color} using \cs{AtBeginDocument}.
+% With LaTeX we use cmd-hooks.
+% 
 %    \begin{macro}{\PdfRender@NormalColorHook}
 %    \begin{macrocode}
 \def\PdfRender@NormalColorHook{}
@@ -679,87 +674,38 @@ and the derived files
 }
 %    \end{macrocode}
 %    \end{macro}
-%    \begin{macro}{\PdfRender@PatchNormalColor}
 %    \begin{macrocode}
-\def\PdfRender@PatchNormalColor{%
-  \ltx@ifundefined{normalcolor}{%
-    \gdef\normalcolor{\PdfRender@NormalColorHook}%
-  }{%
-    \begingroup
-      \def\PdfRender@NormalColorHook{\let\PdfRender@temp=Y}%
-      \PdfRender@TestBox{%
-        \let\set@color\relax
-        \normalcolor
-        \ifx\PdfRender@temp Y%
-        \else
-          \ltx@GlobalAppendToMacro\normalcolor{%
-            \PdfRender@NormalColorHook
-          }%
-        \fi
-      }%
-    \endgroup
-  }%
-  \ifx\@nodocument\relax
-    \global\let\PdfRender@PatchNormalColor\relax
-  \fi
-}%
+\def\PdfRender@temp{LaTeX2e}
+\ifx\PdfRender@temp\fmtname
+ \expandafter \ltx@firstoftwo
+\else
+ \expandafter\ltx@secondoftwo
+\fi 
+ {
+   \AddToHook{cmd/normalcolor/after}{\PdfRender@NormalColorHook}
+   \AddToHook{cmd/color@setgroup/after}{\PdfRender@PatchColorSetGroup}
+ }   
 %    \end{macrocode}
-%    \end{macro}
-%    \begin{macro}{\PdfRender@PatchColorSetGroup}
+% with plain we simply append to \cs{normalcolor} and
+% to \cs{color@setgroup} (but it seems not to 
+% work with miniltx anyway, so it is not quite clear if \cs{normalcolor}
+% is ever used.).   
 %    \begin{macrocode}
-\def\PdfRender@PatchColorSetGroup{%
-  \begingroup
-    \def\PdfRender@ColorSetGroupHook{\let\PdfRender@temp=Y}%
-    \PdfRender@TestBox{%
-      \let\set@color\relax
-      \color@setgroup\color@endgroup
-      \ifx\PdfRender@temp Y%
-      \else
-        \ltx@GlobalAppendToMacro\color@setgroup{%
-          \PdfRender@ColorSetGroupHook
-        }%
-      \fi
+ {
+   \ltx@ifundefined{normalcolor}
+    {%
+      \gdef\normalcolor{\PdfRender@NormalColorHook}%
+    }
+    {%
+      \ltx@GlobalAppendToMacro\normalcolor{%
+            \PdfRender@NormalColorHook}%
     }%
-  \endgroup
-  \ifx\@nodocument\relax
-    \global\let\PdfRender@PatchColorSetGroup\relax
-  \fi
-}%
+  \ltx@GlobalAppendToMacro\color@setgroup{%
+          \PdfRender@ColorSetGroupHook
+        }%  
+ }             
 %    \end{macrocode}
-%    \end{macro}
-%    \begin{macro}{\PdfRender@PatchColor}
-%    \begin{macrocode}
-\def\PdfRender@PatchColor{%
-  \PdfRender@PatchNormalColor
-  \PdfRender@PatchColorSetGroup
-}
-%    \end{macrocode}
-%    \end{macro}
-%    \begin{macrocode}
-\PdfRender@PatchColor
-\ltx@IfUndefined{AtBeginDocument}{}{%
-  \AtBeginDocument{\PdfRender@PatchColor}%
-}
-%    \end{macrocode}
-%    \cs{AfterPackage} is provided by package \xpackage{scrlfile}.
-%    \begin{macrocode}
-\ltx@IfUndefined{AfterPackage}{%
-}{%
-  \AfterPackage{color}{\PdfRender@PatchColor}%
-  \AfterPackage{xcolor}{\PdfRender@PatchColor}%
-  \AfterPackage{etoolbox}{%
-    \AfterEndPreamble{\PdfRender@PatchColor}%
-  }%
-}%
-%    \end{macrocode}
-%    \cs{AfterEndPreamble} is provided by package \xpackage{etoolbox}.
-%    \begin{macrocode}
-\ltx@IfUndefined{AfterEndPreamble}{%
-}{%
-  \AfterEndPreamble{\PdfRender@PatchColor}%
-}%
-%    \end{macrocode}
-%
+% 
 %    \begin{macrocode}
 \PdfRender@RequirePackage{kvsetkeys}[2010/01/28]
 %    \end{macrocode}
@@ -782,7 +728,6 @@ and the derived files
 }%
 {%
   \PdfRender@texorpdfstring{%
-    \PdfRender@PatchNormalColor
     \global\let\PdfRender@FillColor\ltx@empty
     \global\let\PdfRender@StrokeColor\ltx@empty
     \kvsetkeys{PDFRENDER}{#1}%
