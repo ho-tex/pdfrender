@@ -20,7 +20,7 @@ tdslocations={
 }
 
 
-checkconfigs = {"build"}
+checkconfigs = {"build","plain"}
 checkengines = {"pdftex","luatex"}
 
 function update_tag(file,content,tagname,tagdate)
