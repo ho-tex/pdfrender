@@ -1,7 +1,7 @@
 % \iffalse meta-comment
 %
 % File: pdfrender.dtx
-% Version: 2023-12-04 v1.7
+% Version: 2023-12-07 v1.8
 % Info: Access to some PDF graphics parameters
 %
 % Copyright (C)
@@ -85,7 +85,7 @@
 \input docstrip.tex
 \Msg{************************************************************************}
 \Msg{* Installation}
-\Msg{* Package: pdfrender 2023-12-04 v1.7 Access to some PDF graphics parameters (HO)}
+\Msg{* Package: pdfrender 2023-12-07 v1.8 Access to some PDF graphics parameters (HO)}
 \Msg{************************************************************************}
 
 \keepsilent
@@ -97,7 +97,7 @@
 This is a generated file.
 
 Project: pdfrender
-Version: 2023-12-04 v1.7
+Version: 2023-12-07 v1.8
 
 Copyright (C)
    2010 Heiko Oberdiek
@@ -170,7 +170,7 @@ and the derived files
 %<*driver>
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesFile{pdfrender.drv}%
-  [2023-12-04 v1.7 Access to some PDF graphics parameters (HO)]%
+  [2023-12-07 v1.8 Access to some PDF graphics parameters (HO)]%
 \documentclass{ltxdoc}
 \usepackage{holtxdoc}[2011/11/22]
 \usepackage{longtable}
@@ -186,7 +186,7 @@ and the derived files
 % \GetFileInfo{pdfrender.drv}
 %
 % \title{The \xpackage{pdfrender} package}
-% \date{2023-12-04 v1.7}
+% \date{2023-12-07 v1.8}
 % \author{Heiko Oberdiek\thanks
 % {Please report any issues at \url{https://github.com/ho-tex/pdfrender/issues}}}
 %
@@ -441,7 +441,7 @@ and the derived files
   \fi
 \expandafter\x\csname ver@pdfrender.sty\endcsname
 \ProvidesPackage{pdfrender}%
-  [2023-12-04 v1.7 Access to some PDF graphics parameters (HO)]%
+  [2023-12-07 v1.8 Access to some PDF graphics parameters (HO)]%
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -683,7 +683,7 @@ and the derived files
 \fi
  {
    \AddToHook{cmd/normalcolor/after}{\PdfRender@NormalColorHook}
-   \AddToHook{cmd/color@setgroup/after}{\PdfRender@PatchColorSetGroup}
+   \AddToHook{cmd/color@setgroup/after}{\PdfRender@NormalColorHook}
  }
 %    \end{macrocode}
 % with plain we simply append to \cs{normalcolor} and
@@ -1523,6 +1523,9 @@ and the derived files
 %   \begin{Version}{2023-12-04 v1.7}
 %   \item Use (with LaTeX) cmd-hooks to patch \cs{normalcolor} and \cs{color@setgroup}.
 %   This avoids a clash with xcolor.
+%   \end{Version}
+%   \begin{Version}{2023-12-07 v1.8}
+%   \item Fix wrong command name, issue \#3.
 %   \end{Version}
 % \end{History}
 %

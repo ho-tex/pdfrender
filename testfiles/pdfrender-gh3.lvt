@@ -1,0 +1,11 @@
+\documentclass{article}
+\input{regression-test}
+\usepackage{pdfrender}
+\begin{document}
+\START
+\showoutput
+\newsavebox\test
+\begin{lrbox}{\test}
+Essai.
+\end{lrbox}
+\end{document}
