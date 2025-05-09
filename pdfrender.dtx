@@ -58,7 +58,7 @@
 %    use A4 as paper format:
 %       \PassOptionsToClass{a4paper}{article}
 %
-%    Programm calls to get the documentation (example):
+%    Program calls to get the documentation (example):
 %       pdflatex pdfrender.dtx
 %       makeindex -s gind.ist pdfrender.idx
 %       pdflatex pdfrender.dtx
@@ -193,7 +193,7 @@ and the derived files
 % \maketitle
 %
 % \begin{abstract}
-% The PDF format has some graphics parameter like
+% The PDF format has some graphics parameters like
 % line width or text rendering mode. This package
 % provides an interface for setting these parameters.
 % \end{abstract}
@@ -317,10 +317,10 @@ and the derived files
 %
 % \begin{description}
 % \item[Value:]
-%   The values in the second column lists or describe
+%   The values in the second column list or describe
 %   the values that are specified by the PDF specification.
 % \item[Alias:] Instead of magic numbers the package also
-%   defines some aliases that can be given as value.
+%   defines some aliases that can be given as a value.
 %   Example: |LineCapStyle=Round| has the same effect as
 %   |LineCapStyle=1|.
 % \item[Number:] The term \emph{number} means an integer
@@ -338,7 +338,7 @@ and the derived files
 %   before these options can be used (since version 1.2).
 %   \LaTeX's color support sets both colors at the same time
 %   to the same value. However parameter \xoption{TextRenderingMode}
-%   offers the value \texttt{FillStroke} that makes only sense, if
+%   offers the value \texttt{FillStroke} that only makes sense if
 %   the two color types can be set separately.
 %   If one of the options \xoption{FillColor} or \xoption{StrokeColor}
 %   is specified, then also the color is set. For compatibility
@@ -655,7 +655,7 @@ and the derived files
 %
 % \subsection{Hook into \cs{normalcolor}}
 %
-% With LaTeX we use cmd-hooks.
+% With \LaTeX\ we use cmd-hooks.
 %
 %    \begin{macro}{\PdfRender@NormalColorHook}
 %    \begin{macrocode}
@@ -1461,7 +1461,7 @@ and the derived files
 %   Adobe Systems Incorporated. \textit{PDF Reference --
 %   Adobe Portable Document format -- Version 1.7}.
 %   6th ed. 2006.
-%   \textsc{URL:}\,\url{http://www.adobe.com/devnet/acrobat/pdfs/pdf_reference_1-7.pdf}.
+%   \textsc{URL:}\,\url{https://opensource.adobe.com/dc-acrobat-sdk-docs/pdfstandards/pdfreference1.7old.pdf}.
 %
 % \bibitem{news-Vosberg}
 %   Friedrich Vosberg, \textit{Text in Buchstabenumrissen},
@@ -1490,7 +1490,7 @@ and the derived files
 %     Macros \cs{pdfrender} and \cs{textpdfrender} are made robust.
 %   \item
 %     Color extraction rewritten for the case that \cs{pdfmatch}
-%     is not available. This fixes wrong color assigments in
+%     is not available. This fixes wrong color assignments in
 %     case of nesting.
 %   \item
 %     Color extraction of case \cs{pdfmatch} is fixed
@@ -1510,7 +1510,7 @@ and the derived files
 %   \begin{Version}{2016/05/17 v1.4}
 %   \item
 %     Documentation updates.
-%   \item adjust luatex85 reference so that it works in plain TeX.
+%   \item Adjust luatex85 reference so that it works in plain TeX.
 %   \end{Version}
 %   \begin{Version}{2018/11/01 v1.5}
 %   \item
@@ -1521,8 +1521,8 @@ and the derived files
 %     \xpackage{iftex} package.
 %   \end{Version}
 %   \begin{Version}{2023-12-04 v1.7}
-%   \item Use (with LaTeX) cmd-hooks to patch \cs{normalcolor} and \cs{color@setgroup}.
-%   This avoids a clash with xcolor.
+%   \item Use (with \LaTeX) cmd-hooks to patch \cs{normalcolor} and \cs{color@setgroup}.
+%   This avoids a clash with \xpackage{xcolor}.
 %   \end{Version}
 %   \begin{Version}{2023-12-07 v1.8}
 %   \item Fix wrong command name, issue \#3.
